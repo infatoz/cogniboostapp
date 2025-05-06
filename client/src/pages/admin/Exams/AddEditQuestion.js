@@ -6,6 +6,8 @@ import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import GenerateQuizModal from "./GenerateQuizModal"; // New AI Quiz Modal
 
 function AddEditQuestion({
+  topic,
+  difficulty,
   showAddEditQuestionModal,
   setShowAddEditQuestionModal,
   refreshData,
@@ -56,6 +58,9 @@ function AddEditQuestion({
     }
   };
 
+  console.log(topic, difficulty, examId); // Debugging line
+  
+
   return (
     <>
       <Modal
@@ -82,9 +87,18 @@ function AddEditQuestion({
           <Form.Item name="name" label="Question">
             <input type="text" />
           </Form.Item>
-          <Form.Item name="correctOption" label="Correct Option">
+          {/* <Form.Item name="correctOption" label="Correct Option">
             <input type="text" />
-          </Form.Item>
+          </Form.Item> */}
+          <Form.Item name="correctOption" label="Correct Option">
+                              <select name="" id="">
+                                <option value="">Select Option</option>
+                                <option value="A">Option A</option>
+                                <option value="B">Option B</option>
+                                <option value="C">Option C</option>
+                                <option value="D">Option D</option>
+                              </select>
+                            </Form.Item>
 
           <div className="flex gap-3">
             <Form.Item name="A" label="Option A">
@@ -124,6 +138,8 @@ function AddEditQuestion({
 
       {showGenerateQuizModal && (
         <GenerateQuizModal
+          topic={topic}
+          difficulty={difficulty}
           examId={examId}
           setShowGenerateQuizModal={setShowGenerateQuizModal}
           refreshData={refreshData}

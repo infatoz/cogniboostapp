@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { generateQuizQuestions, addQuestionToExam } from "../../../apicalls/exams";
 import { ShowLoading, HideLoading } from "../../../redux/loaderSlice";
 
-function GenerateQuizModal({ examId, setShowGenerateQuizModal, refreshData }) {
+function GenerateQuizModal({ topic, difficulty, examId, setShowGenerateQuizModal, refreshData }) {
   const dispatch = useDispatch();
   const [generatedQuestions, setGeneratedQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,8 +15,8 @@ function GenerateQuizModal({ examId, setShowGenerateQuizModal, refreshData }) {
       setLoading(true);
       
       const response = await generateQuizQuestions({
-        topic: "JavaScript",  // Change dynamically if needed
-        difficulty: "Medium",
+        topic: topic,  // Change dynamically if needed
+        difficulty: difficulty,
         examId: examId,  // ✅ Ensure examId is included
       });
   
@@ -58,15 +58,19 @@ function GenerateQuizModal({ examId, setShowGenerateQuizModal, refreshData }) {
     }
   };
 
+  console.log("Generated Questions:", generatedQuestions); // Debugging line
+  
+
   return (
     <Modal
       title="Generate AI Quiz Questions"
       open={true}
       onCancel={() => setShowGenerateQuizModal(false)}
       footer={null}
+      width={1020}
     >
       <Button type="primary" onClick={generateQuestions} loading={loading}>
-        Generate AI Questions
+        Generate AI Quiz Questions
       </Button>
 
       {generatedQuestions.length > 0 && (
@@ -75,10 +79,21 @@ function GenerateQuizModal({ examId, setShowGenerateQuizModal, refreshData }) {
             className="mt-5"
             dataSource={generatedQuestions}
             columns={[
-              { title: "Question", dataIndex: "name" },
+              { title: "Question", dataIndex: "name" ,width: 300},
+              {title: "Options", dataIndex: "options", render: (text, record) => {
+                return Object.keys(record.options).map((key) => {
+                  return (
+                    <div key={key}>
+                      {key} : {record.options[key]}
+                    </div>
+                  );
+                });
+              }},
               { title: "Correct Option", dataIndex: "correctOption" },
+
             ]}
             rowKey={(record, index) => index}
+            pagination={false}
           />
           <Button type="primary" onClick={approveQuestions} className="mt-3">
             Approve & Add to Exam

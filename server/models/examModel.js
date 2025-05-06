@@ -14,6 +14,10 @@ const examSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    difficulty: {
+      type: String,
+      required: true,
+    },
     totalMarks: {
       type: Number,
       required: true,

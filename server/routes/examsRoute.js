@@ -6,7 +6,9 @@ const Question = require("../models/questionModel");
 
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const genAI = new GoogleGenerativeAI("AIzaSyBKX4W9xfN2Ilt2J3oQ7z7KcmX9sVvMK-E");
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 // add exam
 
 router.post("/add", authMiddleware, async (req, res) => {

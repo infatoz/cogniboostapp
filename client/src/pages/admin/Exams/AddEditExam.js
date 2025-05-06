@@ -1,4 +1,4 @@
-import { Col, Form, message, Row, Select, Table } from "antd";
+import { Col, Form, message, Row, Table } from "antd";
 import React, { useEffect } from "react";
 import {
   addExam,
@@ -143,23 +143,25 @@ function AddEditExam() {
     },
   ];
 
+  
+
   return (
     <div>
-      <PageTitle title={params.id ? "Edit Exam" : "Add Exam"} />
+      <PageTitle title={params.id ? "Edit Quiz" : "Add Quiz"} />
       <div className="divider"></div>
 
       {(examData || !params.id) && (
         <Form layout="vertical" onFinish={onFinish} initialValues={examData}>
           <Tabs defaultActiveKey="1">
-            <TabPane tab="Exam Details" key="1">
+            <TabPane tab="Quiz Details" key="1">
               <Row gutter={[10, 10]}>
                 <Col span={8}>
-                  <Form.Item label="Exam Name" name="name">
+                  <Form.Item label="Quiz Name" name="name">
                     <input type="text" />
                   </Form.Item>
                 </Col>
                 <Col span={8}>
-                  <Form.Item label="Exam Duration" name="duration">
+                  <Form.Item label="Quiz Duration (In Seconds)" name="duration">
                     <input type="number" />
                   </Form.Item>
                 </Col>
@@ -167,14 +169,11 @@ function AddEditExam() {
                   <Form.Item label="Category" name="category">
                     <select name="" id="">
                       <option value="">Select Category</option>
-                      <option value="Javascript">Javascript</option>
-                      <option value="React">React</option>
-                      <option value="Node">Node</option>
-                      <option value="MongoDB">MongoDB</option>
-                      <option value="GK">GK</option>
-                      <option value="ML">Machine Learning</option>
-                      <option value="ebusiness">E-business</option>
-
+                      <option value="Logical Reasoning">Logical Reasoning</option>
+                      <option value="Mathematical Reasoning">Mathematical Reasoning</option>
+                      <option value="Everyday Mathematics">Everyday Mathematics</option>
+                      <option value="Achievers Section">Achievers Section</option>
+                      <option value="Other">Other</option>
                     </select>
                   </Form.Item>
                 </Col>
@@ -186,6 +185,16 @@ function AddEditExam() {
                 <Col span={8}>
                   <Form.Item label="Passing Marks" name="passingMarks">
                     <input type="number" />
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item label="Difficulty level" name="difficulty">
+                    <select name="" id="">
+                      <option value="">Select Difficulty</option>
+                      <option value="Easy">Easy</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Hard">Hard</option>
+                    </select>
                   </Form.Item>
                 </Col>
               </Row>
@@ -224,8 +233,13 @@ function AddEditExam() {
         </Form>
       )}
 
+      {console.log("Exam data",examData)
+      }
+
       {showAddEditQuestionModal && (
         <AddEditQuestion
+          topic={examData?.category}
+          difficulty={examData?.difficulty}
           setShowAddEditQuestionModal={setShowAddEditQuestionModal}
           showAddEditQuestionModal={showAddEditQuestionModal}
           examId={params.id}

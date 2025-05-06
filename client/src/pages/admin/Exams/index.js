@@ -59,6 +59,10 @@ function Exams() {
       dataIndex: "category",
     },
     {
+      title: "Difficulty",
+      dataIndex: "difficulty",
+    },
+    {
       title: "Total Marks",
       dataIndex: "totalMarks",
     },
