@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://cogniboost-api.onrender.com', // Replace with your API base URL
+    // baseURL: 'http://localhost:3000', 
+    baseURL: 'https://cogniboost-api.onrender.com', 
     headers: {
          Authorization : `Bearer ${localStorage.getItem('token')}`
     }
